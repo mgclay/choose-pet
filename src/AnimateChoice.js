@@ -5,19 +5,26 @@ import './AnimateChoice.css'
 import './textbox.css'
 import Footer from './components/Footer.js'
 import Card from 'react-bootstrap/Card';
+import { useState, useRef } from "react";
 
 const AnimateChoice = () => {
 
-    function handleClick(spritesheet) {
-        spritesheet.goToAndPlay(1)
+    const [choice, setChoice] = useState({image : ''});
+
+    const [showTextBox, setShowTextBox] = useState(false);
+
+  // handle selection
+  const handleSelection = () => {
+    setShowTextBox(true);
+  }
+
+    function handleClick(spriteInstance, image) {
+        spriteInstance.goToAndPlay(1);
+        spriteInstance.pause();
         return (
-            <><input type="text" /><button>Submit</button></>
-        );
-    }
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log('You clicked submit.');
-      }
+            <><input type="text"></input><button> Choose pet! </button></>
+        )
+    };
 
     return (
         <div>
@@ -37,8 +44,10 @@ const AnimateChoice = () => {
                 autoplay = {false}
                 isResponsive = {false}
                 endAt = {2}
-                onClick ={spritesheet => {
-                    handleClick(spritesheet);}}
+                getInstance={spritesheet => {
+                    this.spriteInstance = spritesheet;
+                  }}
+                onClick ={handleSelection}
             />
             <Spritesheet
                 stopLastFrame = {true}
@@ -51,11 +60,16 @@ const AnimateChoice = () => {
                 loop = {false}
                 autoplay = {false}
                 isResponsive = {false}
-                onClick ={spritesheet => {
-                    handleClick(spritesheet);}}
+                getInstance={spritesheet => {
+                    this.spriteInstance = spritesheet;
+                  }}
+                onClick = {handleSelection}
             />
             </div>
+            <div>
 
+        {showTextBox && <input type="text" placeholder="Name your pet" />}
+        </div>
         </div>
     )
 }
