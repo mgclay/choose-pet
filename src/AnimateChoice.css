@@ -1,0 +1,10 @@
+.AnimateChoice{
+    display: flex; 
+    flex-direction:row;
+    align-items: center;}
+
+
+.AnimateChoice div {
+    width: 1000px;
+    height: 10px;
+}
