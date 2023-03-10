@@ -4,12 +4,20 @@ import graysheet from './ghs.jpg'
 import './AnimateChoice.css'
 import './textbox.css'
 import Card from 'react-bootstrap/Card';
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 
+import PetSelectionContext from './contexts/PetSelectionContext'
 const AnimateChoice = () => {
+    const handlers = useContext(PetSelectionContext);
     const [showTextBox, setShowTextBox] = useState(Array(2).fill(false));
     const spriteRefs = [useRef(null), useRef(null)];
     const [selectedIndex, setSelectedIndex] = useState(null);
+    const [submittedText, setSubmittedText] = useState(null);
+    const [enteredText, setEnteredText] = useState("");
+    const textChangeHandler = (i) => {
+        setEnteredText(i.target.value);
+        //console.log(i.target.value);
+      };
   // handle selection
     const handleClick = (index) => {
         spriteRefs[index].current.goToAndPlay(1);
@@ -26,7 +34,13 @@ const AnimateChoice = () => {
      };
 
      const handleSubmit = (event, index) => {
-        //axios stuff here?
+        event.preventDefault();
+        setSubmittedText(enteredText);
+        const updatedShowTextBox = [...showTextBox];
+        updatedShowTextBox[index] = false;
+        setShowTextBox(updatedShowTextBox);
+        //axios stuff here
+        handlers.petselection(event, index);
      }
 
     return (
@@ -70,10 +84,11 @@ const AnimateChoice = () => {
             </div>
             {showTextBox.map((isShown, index) => isShown && ( 
                 <form key={index} onSubmit={(event) => handleSubmit(event, index)}>
-                    <input className = "input" type="text" placeholder="Name your pet!" />
+                    <input className = "input" type="text" placeholder="Name your pet!" value={enteredText} onChange={textChangeHandler}/>
                     <button className="button" type="submit">Submit</button>
                 </form>
             ))}
+            {submittedText && (<form className = 'pet-name' > {enteredText}</form>)}
         </div>
     );
 }

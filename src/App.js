@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import AnimateChoice from './AnimateChoice'
-
+import CanvasIntegrationPage from './CanvasIntegrationPage'
 import Header from './components/Header.js'
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div>
     <Header title="My Study Buddy"/>  
-    <center><AnimateChoice/></center>
+    <center><CanvasIntegrationPage/></center>
     </div>
     
     

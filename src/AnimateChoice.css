@@ -2,6 +2,11 @@
     font-family: pixelFont;
     src: url("./fonts/retrogaming.ttf");
   }
+
+  @font-face {
+    font-family: minecraft;
+    src: url("./fonts/Minecraft.ttf");
+  }
 .pet-choice{
     font-family: pixelFont;
     background-color:bisque;
@@ -9,7 +14,15 @@
 .AnimateChoice{
     display: grid;
     place-items: center;
+    align-items: flex-start;
     height: 100vh;
+}
+
+.pet-name{
+    font-family: pixelFont;
+    font-size: 40px;
+    position: relative;
+    top: -50%;
 }
 
 .sprite-container {
@@ -64,9 +77,3 @@
     background-color: rgba(255, 255, 255, 0.45);
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
   }
-
- 
-/*    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);*/
