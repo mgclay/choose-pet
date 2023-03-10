@@ -7,15 +7,14 @@ import Card from 'react-bootstrap/Card';
 import { useState, useRef } from "react";
 
 const AnimateChoice = () => {
-
-    //const [choice, setChoice] = useState({image : ''});
     const [showTextBox, setShowTextBox] = useState(Array(2).fill(false));
     const spriteRefs = [useRef(null), useRef(null)];
-
+    const [selectedIndex, setSelectedIndex] = useState(null);
   // handle selection
     const handleClick = (index) => {
         spriteRefs[index].current.goToAndPlay(1);
         spriteRefs[index].current.pause();
+        setSelectedIndex(index);
         for (let i = 0; i < spriteRefs.length; i++) {
             if (i !== index) {
                 spriteRefs[i].current.goToAndPlay(2);
@@ -26,19 +25,21 @@ const AnimateChoice = () => {
         setShowTextBox(updatedShowTextBox);
      };
 
-     const handleSubmit = () => {
+     const handleSubmit = (event, index) => {
         //axios stuff here?
      }
 
     return (
         <div>
             <Card style= {{width: '130rem'}}>
-            <Card.Header className = 'pet-choice'><center><h1>CHOOSE YOUR PET!!</h1></center></Card.Header> </Card>
+            <Card.Header className = 'pet-choice'><center><h1>CHOOSE YOUR PET</h1></center></Card.Header> </Card>
             <hr />
-            <div className= "AnimateChoice">
+            <div
+            className="sprite-container">
             <Spritesheet
-                ref = {spriteRefs[0]}
-                className="orange"
+                index = {1}
+                ref={spriteRefs[0]}
+                className={`sprite ${selectedIndex !== null && selectedIndex !== 0 ? 'hidden' : ''}`}
                 image = {orangesheet}
                 stopLastFrame = {true}
                 widthFrame = {266}
@@ -52,9 +53,10 @@ const AnimateChoice = () => {
                   onClick={() => handleClick(0)}
             />
             <Spritesheet
+                index = '1'
                 ref = {spriteRefs[1]}
                 stopLastFrame = {true}
-                className = "gray"
+                className={`sprite ${selectedIndex !== null && selectedIndex !== 1 ? 'hidden' : ''}`}
                 image = {graysheet}
                 widthFrame = {266}
                 heightFrame = {305}
@@ -66,10 +68,10 @@ const AnimateChoice = () => {
                   onClick={() => handleClick(1)}
             />
             </div>
-            {showTextBox.map((isShown, index) => isShown && (
+            {showTextBox.map((isShown, index) => isShown && ( 
                 <form key={index} onSubmit={(event) => handleSubmit(event, index)}>
-                    <input type="text" placeholder="Name your pet!" />
-                    <button type="submit">Submit</button>
+                    <input className = "input" type="text" placeholder="Name your pet!" />
+                    <button className="button" type="submit">Submit</button>
                 </form>
             ))}
         </div>
@@ -77,21 +79,3 @@ const AnimateChoice = () => {
 }
 
 export default AnimateChoice
-
-
-/*       const updatedShowTextBox = [...showTextBox];
-        updatedShowTextBox[index] = true;
-        setShowTextBox(updatedShowTextBox);
-        spriteRefs[index].current.goToAndPlay();
-        spriteRefs[index].current.pause();
-        const selectedSprite = spriteRefs[index].current.wrapper;
-        selectedSprite.style.position = "absolute";
-        selectedSprite.style.top = "50%";
-        selectedSprite.style.left = "50%";
-        selectedSprite.style.transform = "translate(-50%, -50%)";
-
-        spriteRefs.forEach((ref, i) => {
-            if (i !== index) {
-              ref.current.wrapper.style.display = "none";
-            }
-          }); */
