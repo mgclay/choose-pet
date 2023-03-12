@@ -4,7 +4,8 @@ import graysheet from './ghs.jpg'
 import './AnimateChoice.css'
 import './textbox.css'
 import Card from 'react-bootstrap/Card';
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext } from "react"
+//import selectpet from './selectpet'
 
 import PetSelectionContext from './contexts/PetSelectionContext'
 const AnimateChoice = () => {
@@ -14,6 +15,7 @@ const AnimateChoice = () => {
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [submittedText, setSubmittedText] = useState(null);
     const [enteredText, setEnteredText] = useState("");
+    const petType = "CT";
     const textChangeHandler = (i) => {
         setEnteredText(i.target.value);
         //console.log(i.target.value);
@@ -25,7 +27,8 @@ const AnimateChoice = () => {
         setSelectedIndex(index);
         for (let i = 0; i < spriteRefs.length; i++) {
             if (i !== index) {
-                spriteRefs[i].current.goToAndPlay(2);
+                setSelectedIndex(index);
+                //spriteRefs[i].current.goToAndPlay(2);//
             }
         }
         const updatedShowTextBox = [...showTextBox];
@@ -39,9 +42,32 @@ const AnimateChoice = () => {
         const updatedShowTextBox = [...showTextBox];
         updatedShowTextBox[index] = false;
         setShowTextBox(updatedShowTextBox);
-        //axios stuff here
-        handlers.petselection(event, index);
+        const currentDate = new Date().toISOString().slice(0,10)
+
+        const petInfo = {
+            enteredText,
+            petType,
+            date: currentDate,
+        };
+        
+        
+
+       handlers.petselection(petInfo);
      }
+
+ /*    const select_pet = () => {
+        const newpet = {
+            avatar_type: "CT",
+            pet_name: "",
+            palette: "",
+            last_interaction: "2023-03-11",
+            last_feed: "2023-03-11"
+        }
+           // selectpet
+             //   .petselection()*/
+
+       // }
+    // }
 
     return (
         <div>

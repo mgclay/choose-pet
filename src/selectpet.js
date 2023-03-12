@@ -5,10 +5,11 @@ const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNz
 const config = {
     headers: { Authorization: `Bearer ${token}` }
 };
-const baseURL = `${process.env.REACT_APP_DB_URL}/tasks/`
+const baseURL = `${process.env.REACT_APP_DB_URL}/avatar/`
 
-const petselection = () => {
-    const request = axios.post(baseURL, pet, config)
+const petselection = (petInfo) => {
+    const request = axios.post(baseURL, petInfo)
+    return request.then(response => response.data)
 }
 
 export default petselection

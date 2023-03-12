@@ -2,7 +2,7 @@
     font-family: pixelFont;
     src: url("./fonts/retrogaming.ttf");
   }
-
+  
   @font-face {
     font-family: minecraft;
     src: url("./fonts/Minecraft.ttf");
@@ -54,6 +54,23 @@
     font-size: 20px;
     transition: all 0.1s ease-in;
     position: relative;
+  }
+
+  .smallbutton {
+    cursor: pointer;
+    border: 1px solid #1a202c;
+    padding: 8px;
+    width: 5%;
+    background: transparent;
+    border-radius: 3px;
+    font-size: 0.75vw;
+    transition: all 0.1s ease-in;
+    position: relative;
+  }
+
+  .smallbutton:hover {
+    background: #1a202c;
+    color: #ffffff;
   }
 
   .button:hover {
