@@ -1,4 +1,4 @@
-import './AnimateChoice.css'
+
 import './textbox.css'
 import Card from 'react-bootstrap/Card';
 import { useState, useRef, useContext } from "react";
